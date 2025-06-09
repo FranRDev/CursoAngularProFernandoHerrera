@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculadora.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [BotonCalculadoraComponent],
   selector: 'calculadora',
   templateUrl: './calculadora.component.html',
 })
