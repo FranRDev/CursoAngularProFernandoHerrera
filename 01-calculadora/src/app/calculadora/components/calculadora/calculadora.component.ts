@@ -5,6 +5,13 @@ import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculador
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BotonCalculadoraComponent],
   selector: 'calculadora',
+  // styles: `
+  //   @reference "tailwindcss";
+
+  //   .comando {
+  //     @apply bg-indigo-700/20;
+  //   }
+  // `,
   templateUrl: './calculadora.component.html',
 })
 export class CalculadoraComponent { }

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // encapsulation: ViewEncapsulation.None,
   host: {
     class: 'w-1/4 border-r border-b border-indigo-400',
     // attribute: 'hola',
@@ -15,9 +16,14 @@ import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular
 export class BotonCalculadoraComponent {
 
   public comando = input(false, { transform: (valor: boolean | string) => typeof valor === 'string' ? valor === '' : valor });
+  public doble = input(false, { transform: (valor: boolean | string) => typeof valor === 'string' ? valor === '' : valor });
 
-  @HostBinding('class.comando') get estiloComando() {
-    return this.comando();
+  // @HostBinding('class.comando') get estiloComando() {
+  //   return this.comando();
+  // }
+
+  @HostBinding('class.w-2/4') get estiloComando() {
+    return this.doble();
   }
 
 }
