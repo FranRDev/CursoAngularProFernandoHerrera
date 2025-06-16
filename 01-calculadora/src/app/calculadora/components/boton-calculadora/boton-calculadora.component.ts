@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, input, output, viewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, input, output, signal, viewChild, ViewEncapsulation } from '@angular/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,6 +14,8 @@ import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, input, out
   templateUrl: './boton-calculadora.component.html'
 })
 export class BotonCalculadoraComponent {
+
+  public presionado = signal(false);
 
   public enClic = output<string>();
   public valorContenido = viewChild<ElementRef<HTMLButtonElement>>('boton');
@@ -33,6 +35,18 @@ export class BotonCalculadoraComponent {
     if (!this.valorContenido()?.nativeElement) { return; }
     const valor = this.valorContenido()!.nativeElement.innerText;
     this.enClic.emit(valor.trim());
+  }
+
+  public estiloTecladoPresionado(tecla: string) {
+    if (!this.valorContenido()) return;
+    const valor = this.valorContenido()?.nativeElement.innerText;
+
+    if (valor !== tecla) return;
+    this.presionado.set(true);
+
+    setTimeout(() => {
+      this.presionado.set(false);
+    }, 100);
   }
 
 }

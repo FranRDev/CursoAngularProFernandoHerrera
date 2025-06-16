@@ -3,6 +3,9 @@ import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculador
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(document:keyup)': 'manejarEventoTeclado($event)'
+  },
   imports: [BotonCalculadoraComponent],
   selector: 'calculadora',
   // styles: `
@@ -17,7 +20,12 @@ import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculador
 export class CalculadoraComponent {
 
   manejarClic(llave: string) {
-    console.log(llave);
+    console.log({ llave });
+  }
+
+  // @HostListener('document:keyup', ['$event'])
+  manejarEventoTeclado(evento: KeyboardEvent) {
+    this.manejarClic(evento.key);
   }
 
 }

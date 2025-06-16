@@ -1,5 +1,7 @@
 <!-- <div class="w-1/4 border-r border-b border-indigo-400"> -->
-<button [class.comando]="comando()" [class.doble]="doble()" (click)="manejarClic()" #boton>
+<button [class.comando]="comando()" [class.presionado]="presionado()" [class.doble]="doble()" (click)="manejarClic()"
+  #boton>
+
   <ng-content />
 </button>
 <!-- </div> -->

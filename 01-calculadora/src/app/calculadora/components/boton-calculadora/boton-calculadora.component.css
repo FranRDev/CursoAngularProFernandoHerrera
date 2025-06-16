@@ -11,3 +11,7 @@ button {
 .comando {
   @apply bg-indigo-700/20;
 }
+
+.presionado {
+  @apply bg-indigo-800/20;
+}
