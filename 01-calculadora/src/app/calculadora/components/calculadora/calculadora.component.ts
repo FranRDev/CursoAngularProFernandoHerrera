@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, viewChildren } from '@angular/core';
 import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculadora.component';
 
 @Component({
@@ -19,13 +19,31 @@ import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculador
 })
 export class CalculadoraComponent {
 
+  public botones = viewChildren(BotonCalculadoraComponent);
+
   manejarClic(llave: string) {
     console.log({ llave });
   }
 
   // @HostListener('document:keyup', ['$event'])
   manejarEventoTeclado(evento: KeyboardEvent) {
-    this.manejarClic(evento.key);
+    const tecla = evento.key;
+
+    const equivalencias: Record<string, string> = {
+      Escape: 'C',
+      Clear: 'C',
+      '*': 'x',
+      '/': '÷',
+      Enter: '='
+    }
+
+    const valorTecla = equivalencias[tecla] ?? tecla;
+
+    this.manejarClic(valorTecla);
+
+    this.botones().forEach(boton => {
+      boton.estiloTecladoPresionado(valorTecla);
+    });
   }
 
 }

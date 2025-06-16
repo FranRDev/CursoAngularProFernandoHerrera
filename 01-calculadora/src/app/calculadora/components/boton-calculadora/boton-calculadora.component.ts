@@ -4,7 +4,9 @@ import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, input, out
   changeDetection: ChangeDetectionStrategy.OnPush,
   // encapsulation: ViewEncapsulation.None,
   host: {
-    class: 'w-1/4 border-r border-b border-indigo-400',
+    '[class.w-2/4]': 'doble()',
+    '[class.w-1/4]': '!doble()',
+    class: 'border-r border-b border-indigo-400',
     // attribute: 'hola',
     // 'data-size': 'XL'
   },
@@ -27,9 +29,9 @@ export class BotonCalculadoraComponent {
   //   return this.comando();
   // }
 
-  @HostBinding('class.w-2/4') get estiloComando() {
-    return this.doble();
-  }
+  // @HostBinding('class.w-2/4') get estiloComando() {
+  //   return this.doble();
+  // }
 
   manejarClic() {
     if (!this.valorContenido()?.nativeElement) { return; }
