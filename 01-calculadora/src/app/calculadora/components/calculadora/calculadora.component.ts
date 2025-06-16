@@ -14,4 +14,10 @@ import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculador
   // `,
   templateUrl: './calculadora.component.html',
 })
-export class CalculadoraComponent { }
+export class CalculadoraComponent {
+
+  manejarClic(llave: string) {
+    console.log(llave);
+  }
+
+}

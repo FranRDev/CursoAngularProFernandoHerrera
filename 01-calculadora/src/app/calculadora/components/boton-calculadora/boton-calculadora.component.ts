@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, input, output, viewChild, ViewEncapsulation } from '@angular/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,6 +15,9 @@ import { ChangeDetectionStrategy, Component, HostBinding, input, ViewEncapsulati
 })
 export class BotonCalculadoraComponent {
 
+  public enClic = output<string>();
+  public valorContenido = viewChild<ElementRef<HTMLButtonElement>>('boton');
+
   public comando = input(false, { transform: (valor: boolean | string) => typeof valor === 'string' ? valor === '' : valor });
   public doble = input(false, { transform: (valor: boolean | string) => typeof valor === 'string' ? valor === '' : valor });
 
@@ -24,6 +27,12 @@ export class BotonCalculadoraComponent {
 
   @HostBinding('class.w-2/4') get estiloComando() {
     return this.doble();
+  }
+
+  manejarClic() {
+    if (!this.valorContenido()?.nativeElement) { return; }
+    const valor = this.valorContenido()!.nativeElement.innerText;
+    this.enClic.emit(valor.trim());
   }
 
 }
