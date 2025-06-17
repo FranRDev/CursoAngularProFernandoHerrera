@@ -32,8 +32,10 @@ export class CalculadoraComponent {
   //   return this.servicioCalculadora.textoResultado();
   // }
 
-  manejarClic(llave: string) {
-    console.log({ llave });
+  manejarClic(tecla: string) {
+    // console.log({ llave });
+
+    this.servicioCalculadora.construirNumero(tecla);
   }
 
   // @HostListener('document:keyup', ['$event'])

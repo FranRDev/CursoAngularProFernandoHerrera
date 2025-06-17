@@ -7,7 +7,7 @@ const operadoresEspeciales = ['+/-', '%', '.', '=', 'C', 'Backspace'];
 @Injectable({ providedIn: 'root' })
 export class CalculadoraService {
 
-  public textoResultado = signal('1234.56');
+  public textoResultado = signal('0');
   public textoSubresultado = signal('0');
   public ultimoOperador = signal('+');
 
@@ -55,16 +55,53 @@ export class CalculadoraService {
       return;
     }
 
+    // Limitar caracteres
+    if (this.textoResultado().length >= 10) {
+      console.log('Máximo caracteres alcanzado.');
+    }
+
+    // Validar decimal
     if (valor === '.' && !this.textoResultado().includes('.')) {
-      if (this.textoResultado() === '0') {
-        this.textoResultado.update(valorAnterior => valorAnterior + '0.');
+      if (this.textoResultado() === '0' || this.textoResultado() === '') {
+        this.textoResultado.set('0.');
+        return;
       }
 
+      this.textoResultado.update(valorActual => valorActual + '.');
       return;
     }
 
-    this.textoResultado.update(valorAnterior => valorAnterior + '.');
-    return;
+    // Manejo 0 inicial
+    if (valor === '0' && (this.textoResultado() === '0' || this.textoResultado() === '-0')) {
+      return;
+    }
+
+    // Cambiar signo
+    if (valor == '+/-') {
+      if (this.textoResultado().includes('-')) {
+        this.textoResultado.update(valorActual => valorActual.slice(1));
+        return;
+      }
+
+      this.textoResultado.update(valorActual => '-' + valorActual);
+      return;
+    }
+
+    // Números
+    if (numeros.includes(valor)) {
+      if (this.textoResultado() === '0') {
+        this.textoResultado.set(valor);
+        return;
+      }
+
+      if (this.textoResultado() === '-0') {
+        this.textoResultado.set('-' + valor);
+        return;
+      }
+
+      this.textoResultado.update(valorActual => valorActual + valor);
+      return;
+    }
   }
 
 }
