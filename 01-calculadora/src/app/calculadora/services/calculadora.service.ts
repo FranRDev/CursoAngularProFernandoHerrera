@@ -1,10 +1,70 @@
 import { Injectable, signal } from '@angular/core';
 
+const numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const operadores = ['+', '-', '*', '/'];
+const operadoresEspeciales = ['+/-', '%', '.', '=', 'C', 'Backspace'];
+
 @Injectable({ providedIn: 'root' })
 export class CalculadoraService {
 
-  public textoResultado = signal('0');
+  public textoResultado = signal('1234.56');
   public textoSubresultado = signal('0');
   public ultimoOperador = signal('+');
+
+  public construirNumero(valor: string): void {
+    // Validar entrada
+    if (![...numeros, ...operadores, ...operadoresEspeciales].includes(valor)) {
+      console.log('Entrada inválida', valor);
+      return;
+    }
+
+    // =
+    if (valor === '=') {
+      // TODO
+      console.log('Calcular resultado');
+      return;
+    }
+
+    // Limpiar resultado
+    if (valor === 'C') {
+      this.textoResultado.set('0');
+      this.textoSubresultado.set('0');
+      this.ultimoOperador.set('+');
+      return;
+    }
+
+    // Backspace
+    // TODO: Reviar números negativos
+    if (valor === 'Backspace') {
+      if (this.textoResultado() === '0') return;
+
+      if (this.textoResultado().length === 1) {
+        this.textoResultado.set('0');
+        return;
+      }
+
+      this.textoResultado.update(valorActual => valorActual.slice(0, -1));
+      return;
+    }
+
+    // Aplicar operador
+    if (operadores.includes(valor)) {
+      this.ultimoOperador.set(valor);
+      this.textoSubresultado.set(this.textoResultado());
+      this.textoResultado.set('0');
+      return;
+    }
+
+    if (valor === '.' && !this.textoResultado().includes('.')) {
+      if (this.textoResultado() === '0') {
+        this.textoResultado.update(valorAnterior => valorAnterior + '0.');
+      }
+
+      return;
+    }
+
+    this.textoResultado.update(valorAnterior => valorAnterior + '.');
+    return;
+  }
 
 }
