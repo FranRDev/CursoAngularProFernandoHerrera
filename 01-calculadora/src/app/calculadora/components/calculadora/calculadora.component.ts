@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, viewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, viewChildren } from '@angular/core';
 import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculadora.component';
+import { CalculadoraService } from '@/calculadora/services/calculadora.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,7 +20,17 @@ import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculador
 })
 export class CalculadoraComponent {
 
-  public botones = viewChildren(BotonCalculadoraComponent);
+  private servicioCalculadora = inject(CalculadoraService);
+
+  protected botones = viewChildren(BotonCalculadoraComponent);
+
+  protected textoResultado = computed(() => this.servicioCalculadora.textoResultado());
+  protected textoSubresultado = computed(() => this.servicioCalculadora.textoSubresultado());
+  protected ultimoOperador = computed(() => this.servicioCalculadora.ultimoOperador());
+
+  // get textoResultado() {
+  //   return this.servicioCalculadora.textoResultado();
+  // }
 
   manejarClic(llave: string) {
     console.log({ llave });
