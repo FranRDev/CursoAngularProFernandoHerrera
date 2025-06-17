@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 
 const numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const operadores = ['+', '-', '*', '/'];
+const operadores = ['+', '-', '*', '/', '÷', 'x'];
 const operadoresEspeciales = ['+/-', '%', '.', '=', 'C', 'Backspace'];
 
 @Injectable({ providedIn: 'root' })
@@ -20,8 +20,7 @@ export class CalculadoraService {
 
     // =
     if (valor === '=') {
-      // TODO
-      console.log('Calcular resultado');
+      this.calcularResultado();
       return;
     }
 
@@ -38,6 +37,16 @@ export class CalculadoraService {
     if (valor === 'Backspace') {
       if (this.textoResultado() === '0') return;
 
+      // if (this.textoResultado() === '-0') {
+      //   this.textoResultado.set('0');
+      //   return;
+      // };
+
+      if (this.textoResultado().includes('-') && this.textoResultado().length === 2) {
+        this.textoResultado.set('0');
+        return;
+      }
+
       if (this.textoResultado().length === 1) {
         this.textoResultado.set('0');
         return;
@@ -49,6 +58,7 @@ export class CalculadoraService {
 
     // Aplicar operador
     if (operadores.includes(valor)) {
+      // this.calcularResultado();
       this.ultimoOperador.set(valor);
       this.textoSubresultado.set(this.textoResultado());
       this.textoResultado.set('0');
@@ -102,6 +112,42 @@ export class CalculadoraService {
       this.textoResultado.update(valorActual => valorActual + valor);
       return;
     }
+  }
+
+  public calcularResultado() {
+    const numero1 = parseFloat(this.textoSubresultado());
+    const numero2 = parseFloat(this.textoResultado());
+
+    let resultado = 0;
+
+    switch (this.ultimoOperador()) {
+      case '+':
+        resultado = numero1 + numero2;
+        break;
+
+      case '-':
+        resultado = numero1 - numero2;
+        break;
+
+      case '*':
+        resultado = numero1 * numero2;
+        break;
+
+      case 'x':
+        resultado = numero1 * numero2;
+        break;
+
+      case '/':
+        resultado = numero1 / numero2;
+        break;
+
+      case '÷':
+        resultado = numero1 / numero2;
+        break;
+    }
+
+    this.textoResultado.set(resultado.toString());
+    this.textoSubresultado.set('0');
   }
 
 }

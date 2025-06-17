@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, viewChildren } from '@angular/core';
+
 import { BotonCalculadoraComponent } from '../boton-calculadora/boton-calculadora.component';
 import { CalculadoraService } from '@/calculadora/services/calculadora.service';
 
@@ -45,7 +46,7 @@ export class CalculadoraComponent {
     const equivalencias: Record<string, string> = {
       Escape: 'C',
       Clear: 'C',
-      '*': 'x',
+      X: '*',
       '/': '÷',
       Enter: '='
     }
