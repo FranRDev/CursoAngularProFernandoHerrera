@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
@@ -14,16 +16,32 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  // it(`should have the 'calculadora' title`, () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   const app = fixture.componentInstance;
-  //   expect(app.title).toEqual('calculadora');
-  // });
+  it('debería ser 3', () => {
+    // A = Arrange
+    const numero1 = 1;
+    const numero2 = 2;
+
+    // A = Act
+    const resultado = numero1 + numero2;
+
+    // A = Assert
+    expect(resultado).toBe(3);
+  });
+
+  it(`should have the 'calculadora' title`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('calculadora');
+  });
 
   // it('should render title', () => {
   //   const fixture = TestBed.createComponent(AppComponent);
   //   fixture.detectChanges();
   //   const compiled = fixture.nativeElement as HTMLElement;
+
+  //   // console.log(compiled);
+
   //   expect(compiled.querySelector('h1')?.textContent).toContain('Hello, calculadora');
   // });
+
 });
