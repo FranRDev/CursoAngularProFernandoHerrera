@@ -1,20 +1,24 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
 
+  let fixture: ComponentFixture<AppComponent>;
+  let compiled: HTMLElement;
+  let app: AppComponent;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
+    compiled = fixture.nativeElement as HTMLElement;
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  it('debería crear la app', () => expect(app).toBeTruthy());
 
   it('debería ser 3', () => {
     // A = Arrange
@@ -28,20 +32,8 @@ describe('AppComponent', () => {
     expect(resultado).toBe(3);
   });
 
-  it(`should have the 'calculadora' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('calculadora');
-  });
+  it(`debería tener el título 'calculadora'`, () => expect(app.title).toEqual('calculadora'));
 
-  // it('should render title', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.nativeElement as HTMLElement;
-
-  //   // console.log(compiled);
-
-  //   expect(compiled.querySelector('h1')?.textContent).toContain('Hello, calculadora');
-  // });
+  it('debe renderizar router-outlet', () => expect(compiled.querySelector('router-outlet')).not.toBeNull());
 
 });
