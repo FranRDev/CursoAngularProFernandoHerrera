@@ -36,4 +36,25 @@ describe('AppComponent', () => {
 
   it('debe renderizar router-outlet', () => expect(compiled.querySelector('router-outlet')).not.toBeNull());
 
+  it('debería renderizar router-outlet envuelto con clases CSS', () => {
+    const elementoDiv = compiled.querySelector('div');
+    const clasesCssObligatorias = 'min-w-screen min-h-screen bg-slate-600 flex items-center justify-center px-5 py-5'.split(' ');
+
+    expect(elementoDiv).not.toBeNull();
+
+    // elementoDiv?.classList.forEach(clase => expect(clasesCss).toContain(clase));
+
+    const clasesCss = elementoDiv?.classList.value.split(' ');
+
+    clasesCssObligatorias.forEach(clase => expect(clasesCss).toContain(clase));
+  });
+
+  it("debería contener el 'buy me a beer'", () => {
+    const elementoAnchor = compiled.querySelector('a');
+    expect(elementoAnchor).not.toBeNull();
+    expect(elementoAnchor?.title).toBe('Buy me a beer');
+    expect(elementoAnchor?.href).toBe('https://www.buymeacoffee.com/scottwindon');
+    expect(elementoAnchor?.getAttribute('href')).toBe('https://www.buymeacoffee.com/scottwindon');
+  });
+
 });
