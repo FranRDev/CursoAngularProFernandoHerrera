@@ -34,7 +34,7 @@ describe('AppComponent', () => {
 
   it(`debería tener el título 'calculadora'`, () => expect(app.title).toEqual('calculadora'));
 
-  it('debe renderizar router-outlet', () => expect(compiled.querySelector('router-outlet')).not.toBeNull());
+  it('debería renderizar router-outlet', () => expect(compiled.querySelector('router-outlet')).not.toBeNull());
 
   it('debería renderizar router-outlet envuelto con clases CSS', () => {
     const elementoDiv = compiled.querySelector('div');
