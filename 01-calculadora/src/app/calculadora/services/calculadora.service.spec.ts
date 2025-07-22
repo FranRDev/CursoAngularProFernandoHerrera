@@ -10,9 +10,9 @@ describe('CalculadoraService', () => {
     servicio = TestBed.inject(CalculadoraService);
   });
 
-  beforeAll(() => {}); // Antes de todas las pruebas.
-  afterEach(() => {}); // Después de cada prueba.
-  afterAll(() => {}); // Después de todas las pruebas.
+  beforeAll(() => { }); // Antes de todas las pruebas.
+  afterEach(() => { }); // Después de cada prueba.
+  afterAll(() => { }); // Después de todas las pruebas.
 
   it('debería ser creado', () => {
     expect(servicio).toBeTruthy();
@@ -114,15 +114,41 @@ describe('CalculadoraService', () => {
     expect(servicio.textoResultado()).toBe('0.0');
   });
 
-  // it('', () => {
+  it('debería manejar el cambio de signo correctamente', () => {
+    servicio.construirNumero('1');
+    servicio.construirNumero('+/-');
 
-  // });
+    expect(servicio.textoResultado()).toBe('-1');
 
-  // it('', () => {
+    servicio.construirNumero('+/-');
 
-  // });
+    expect(servicio.textoResultado()).toBe('1');
+  });
 
-  // it('', () => {
+  it('debería manejar el borrar correctamen', () => {
+    servicio.textoResultado.set('123');
+    servicio.construirNumero('Backspace');
 
-  // });
+    expect(servicio.textoResultado()).toBe('12');
+
+    servicio.construirNumero('Backspace');
+
+    expect(servicio.textoResultado()).toBe('1');
+
+    servicio.construirNumero('Backspace');
+
+    expect(servicio.textoResultado()).toBe('0');
+  });
+
+  it('debería manejar la longitud máxima correctamente', () => {
+    for (let contador = 0; contador < 10; contador++) {
+      servicio.construirNumero('1');
+    }
+
+    expect(servicio.textoResultado().length).toBe(10);
+
+    servicio.construirNumero('1');
+    expect(servicio.textoResultado().length).toBe(10);
+  });
+
 });

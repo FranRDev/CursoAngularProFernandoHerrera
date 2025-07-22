@@ -68,6 +68,7 @@ export class CalculadoraService {
     // Limitar caracteres
     if (this.textoResultado().length >= 10) {
       console.log('Máximo caracteres alcanzado.');
+      return;
     }
 
     // Validar decimal
