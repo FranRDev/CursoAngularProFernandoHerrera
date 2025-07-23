@@ -18,10 +18,7 @@ describe('VistaCalculadoraComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('debería crear la app', () => {
-    console.log(compiled);
-    expect(component).toBeTruthy()
-  });
+  it('debería crearse el componente', () => expect(component).toBeTruthy());
 
   it('debería contener el componente calculadora', () => expect(compiled.querySelector('calculadora')).not.toBeNull());
 

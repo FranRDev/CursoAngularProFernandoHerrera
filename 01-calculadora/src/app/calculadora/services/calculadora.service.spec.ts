@@ -14,9 +14,7 @@ describe('CalculadoraService', () => {
   afterEach(() => { }); // Después de cada prueba.
   afterAll(() => { }); // Después de todas las pruebas.
 
-  it('debería ser creado', () => {
-    expect(servicio).toBeTruthy();
-  });
+  it('debería crearse el servicio', () => expect(servicio).toBeTruthy());
 
   it('debería crearse con valores por defecto', () => {
     expect(servicio.textoResultado()).toBe('0');
